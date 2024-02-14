@@ -4,10 +4,20 @@ This is a basic implementation of the Garbage collector concept(actually it is a
 The goal is to not worry a lot about memory leaks while working on big projects. It is always good to free allocated memory when it has done it's job, but sometimes a few bytes slip, and thats when Leak Killer comes in handy!
 
 I advice you to go learn a little bit about how garbage collectors work, then think of a simple implementation and code your own library. If you are stuck you can always read the code, it is simple and straight forward, trust me!
+Ofc working
 
 ## How to use
 Actually, it is very simple to use the library, all you need to do is to clone the repo `git clone git@github.com:0xjetblack/leak_killer.git`.
 Then run make to get the `leak_killer.a` file so you can use it in your program.
+
+`lfree(void *p)`: frees memory
+
+`free_heap(void)`: frees the remaining memory  in the linked list. u should not use this a lot, but its very helpful in the case of memory leak.
+
+`lfmalloc(size_t size)`: allocates and adds the memory to a linked list used to track memory so u can free it in two ways (1) free specific block with lfree() (2) free everything with free_heap()
+
+**IMPORTANT**:
+  To avoid double free when using `free_heap()` always use `lfree()` to free the tracked memory.
 
 ## Coding examples
 Basic functionality:
@@ -39,7 +49,3 @@ int  main(void)
   return 0;
 }
 ```
-
-## TODO:
-1. Better documentation.
-2. Extensive testing.
